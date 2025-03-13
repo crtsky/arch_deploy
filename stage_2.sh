@@ -1,10 +1,9 @@
 #!/bin/bash
 set -e
 
-TIMEZONE="Europe/Moscow"
 USER_NAME="coritsky"
 USER_GROUPS="users,wheel,audio,video"
-
+TIMEZONE="Europe/Moscow"
 
 if [[ -z "${USER_PASS}" ]]
 then

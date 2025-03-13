@@ -12,3 +12,4 @@
     ```bash
     export USER_PASS="mySuperSecretPass"
     ```
+2. Изменить USER_NAME на своё в stage_2.sh
