@@ -12,5 +12,14 @@
     ```bash
     export USER_PASS="mySuperSecretPass"
     ```
-2. Изменить `USER_NAME` на своё в stage_2.sh
+
+2. Если будет использоваться wlan, перед выполнением скрипта нужно экспортировать `NETWORK_PASS`:
+
+    ```bash
+    export NETWORK_PASS="mySuperSecretNetworkPass"
+    ```
+
 3. Если будет использоваться wlan, изменить `NETWORK_NAME` на своё
+4. Изменить `USER_NAME` на своё
+5. Изменить `HOST_NAME` на своё
+6. Если будет использоваться SSD, убрать `autodefrag` из `BTRFS_PARAMS`

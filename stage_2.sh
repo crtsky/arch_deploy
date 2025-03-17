@@ -1,13 +1,9 @@
 #!/bin/bash
 set -e
 
-USER_NAME="coritsky"
-USER_GROUPS="users,wheel,audio,video"
-TIMEZONE="Europe/Moscow"
-
-if [[ -z "${USER_PASS}" ]]
+if [[ -z "${USER_PASS}" || -z "${TIMEZONE}" || -z "${USER_NAME}" || -z "${USER_GROUPS}" ]]
 then
-    echo "Не задана переменная окружения USER_PASS"
+    echo "Переменные окружения не экспортированы корректно"
     exit 1
 fi
 

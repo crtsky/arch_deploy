@@ -2,6 +2,10 @@
 
 set -e
 
+               USER_NAME="coritsky"
+               HOST_NAME="samsung"
+             USER_GROUPS="users,wheel,audio,video"
+
                     KEYS="ru"
                     FONT="cyr-sun16"
                BOOT_MODE=64
@@ -119,7 +123,7 @@ echo "Генерация fstab"
 genfstab -U ${ROOT_MOUNT_POINT} >> ${ROOT_MOUNT_POINT}/etc/fstab
 
 echo "Установка hostname"
-echo "arch" > ${ROOT_MOUNT_POINT}/etc/hostname
+echo ${HOST_NAME} > ${ROOT_MOUNT_POINT}/etc/hostname
 
 echo "Подготовка файлов конфигурации локалей"
 sed -i "s/#\(en_US\.UTF-8\)/\1/" ${ROOT_MOUNT_POINT}/etc/locale.gen
@@ -143,7 +147,10 @@ chmod +x ${ROOT_MOUNT_POINT}/${SECOND_STAGE_SCRIPT}
 
 echo "Переход в новое окружение"
 arch-chroot ${ROOT_MOUNT_POINT}  /bin/bash -c "
-    export USER_PASS='${USER_PASS}'
+    export USER_PASS='${USER_PASS}' &&
+    export USER_NAME='${USER_NAME}' &&
+    export TIMEZONE='${TIMEZONE}' &&
+    export USER_GROUPS='${USER_GROUPS}'
     /'${SECOND_STAGE_SCRIPT}'
 "
 echo "Завершение..."
