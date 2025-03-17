@@ -24,9 +24,7 @@ set -e
                 TIMEZONE="Europe/Moscow"
        
             PACKAGE_LIST=( "base"
-                           "base-devel"
                            "linux"
-                           "linux-headers"
                            "linux-firmware"
                            "grub"
                            "nano"
@@ -38,10 +36,26 @@ set -e
                            "git"
                            "efibootmgr"
                            "sudo"
+                           "mako"
+                           "grim"
+                           "slurp"
+                           "pipewire"
+                           "pipewire-alsa"
+                           "pipewire-pulse"
+                           "pipewire-jack"
+                           "wireplumber"
+                           "bemenu"
                          )
 
+                GIT_LINK="https://raw.githubusercontent.com/crtsky/arch_deploy/refs/heads/main"
      SECOND_STAGE_SCRIPT="stage_2.sh"
-SECOND_STAGE_SCRIPT_LINK="https://raw.githubusercontent.com/crtsky/arch_deploy/refs/heads/main/${SECOND_STAGE_SCRIPT}"
+SECOND_STAGE_SCRIPT_LINK="${GIT_LINK}/${SECOND_STAGE_SCRIPT}"
+
+        SWAY_CONFIG_LINK="${GIT_LINK}/sway"
+             SWAY_CONFIG="config"
+         SWAY_BAR_CONFIG="sway_bar.sh"
+         SWAY_CONFIG_DIR=/home/${USER_NAME}/.config/sway
+     SWAY_BAR_CONFIG_DIR=${SWAY_CONFIG_DIR}/scripts
 
 loadkeys ${KEYS}
 setfont ${FONT}
@@ -153,6 +167,12 @@ arch-chroot ${ROOT_MOUNT_POINT}  /bin/bash -c "
     export USER_GROUPS='${USER_GROUPS}'
     /'${SECOND_STAGE_SCRIPT}'
 "
+
+echo "Загрузка конфигурационных файлов sway"
+mkdir -p ${SWAY_BAR_CONFIG_DIR}
+curl -X GET ${SWAY_CONFIG_LINK}/${SWAY_CONFIG} -o ${ROOT_MOUNT_POINT}/${SWAY_CONFIG_DIR}/${SWAY_CONFIG}
+curl -X GET ${SWAY_CONFIG_LINK}/${SWAY_BAR_CONFIG} -o ${ROOT_MOUNT_POINT}/${SWAY_BAR_CONFIG_DIR}/${SWAY_BAR_CONFIG}
+
 echo "Завершение..."
 rm ${ROOT_MOUNT_POINT}/${SECOND_STAGE_SCRIPT}
 reboot
