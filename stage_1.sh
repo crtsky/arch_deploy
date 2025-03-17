@@ -169,7 +169,7 @@ arch-chroot ${ROOT_MOUNT_POINT}  /bin/bash -c "
 "
 
 echo "Загрузка конфигурационных файлов sway"
-mkdir -p ${SWAY_BAR_CONFIG_DIR}
+mkdir -p ${ROOT_MOUNT_POINT}/${SWAY_BAR_CONFIG_DIR}
 curl -X GET ${SWAY_CONFIG_LINK}/${SWAY_CONFIG} -o ${ROOT_MOUNT_POINT}/${SWAY_CONFIG_DIR}/${SWAY_CONFIG}
 curl -X GET ${SWAY_CONFIG_LINK}/${SWAY_BAR_CONFIG} -o ${ROOT_MOUNT_POINT}/${SWAY_BAR_CONFIG_DIR}/${SWAY_BAR_CONFIG}
 
